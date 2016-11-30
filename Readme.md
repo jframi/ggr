@@ -15,6 +15,7 @@ library(knitr)
 ```
 
 
+Let's read two example files provided with the package
 
 
 ```r
@@ -22,13 +23,7 @@ mymap<-read.table(system.file("extdata","Nguepjop.et.al.2016.map.txt",package="g
 myg<-read.table(system.file("extdata","Nguepjop.et.al.2016.txt",package="ggr"))
 ```
 
-The files looks like that
-
-
-```r
-kable(head(mymap))
-```
-
+The files look like that:
 
 
 |V1           |V2  |   V3|
@@ -39,10 +34,6 @@ kable(head(mymap))
 |gi-0832_A    |A04 | 32.0|
 |Ah3TC39B04_A |A04 | 32.0|
 |Ad92K17_A    |A04 | 32.0|
-
-```r
-kable(head(myg))
-```
 
 
 
@@ -81,18 +72,39 @@ mymap
 ##         35.3         41.1         50.6         65.9
 ```
 
+Let's get the genotype codes that are used in the genotype table myg :
+
 
 ```r
 codes<-unique(c(as.matrix(myg[,-1])))
+codes
+```
+
+```
+## [1] "B" "H" "A" "-"
+```
+
+We will need a vector of named colors, using codes as names, to plot the genotypes blocs
+
+```r
 mycolors<-c("green","yellow","red","white")
 names(mycolors)<-codes
+mycolors
 ```
+
+```
+##        B        H        A        - 
+##  "green" "yellow"    "red"  "white"
+```
+
+
+Let's use the `gg` function with myg, mymap and mycolors. There is a couple of parameters to explore, especially parameters of the `maplot` function that is used to plot the map.
 
 
 ```r
-gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,sw=-1,first = 0.05,position=F)
+gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,first = 0.05,position=F,decalcoef = 0.005, sw=-1)
 ```
 
-![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-2.png)
+![plot of chunk unnamed-chunk-29](figure/unnamed-chunk-29-1.png)![plot of chunk unnamed-chunk-29](figure/unnamed-chunk-29-2.png)
 
 
