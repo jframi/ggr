@@ -1,0 +1,48 @@
+---
+title: "ggr intro"
+author: "JF Rami"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r}
+library(ggr)
+library(knitr)
+```
+
+
+
+```{r, fig.show='hold'}
+mymap<-read.table(system.file("extdata","Nguepjop.et.al.2016.map.txt",package="ggr"))
+myg<-read.table(system.file("extdata","Nguepjop.et.al.2016.txt",package="ggr"))
+```
+
+The files looks like that
+
+```{r}
+kable(head(mymap))
+kable(head(myg))
+```
+
+The map needs to be converted to the R/qtl format
+
+```{r}
+mymap<-as.map(mymap)
+mymap
+```
+
+```{r}
+codes<-unique(c(as.matrix(myg[,-1])))
+mycolors<-c("green","yellow","red","white")
+names(mycolors)<-codes
+```
+
+```{r, fig.width=10, fig.height=6}
+gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,sw=-1,first = 0.05,position=F)
+
+```
+
+
