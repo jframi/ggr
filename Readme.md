@@ -102,7 +102,7 @@ Let's use the `gg` function with myg, mymap and mycolors. There is a couple of p
 
 
 ```r
-gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,first = 0.05,position=F,decalcoef = 0.005, sw=-1)
+gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,sw=-1,first = 0.05,position=F)
 ```
 
 ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png)![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-2.png)

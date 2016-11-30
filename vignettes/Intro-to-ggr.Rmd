@@ -53,8 +53,7 @@ mycolors
 Let's use the `gg` function with myg, mymap and mycolors. There is a couple of parameters to explore, especially parameters of the `maplot` function that is used to plot the map.
 
 ```{r, fig.width=10, fig.height=6}
-gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,first = 0.05,position=F,decalcoef = 0.005, sw=-1)
-
+gg(x = myg,map = mymap,col =mycolors,lmarg = 0.06 ,inter=0.1,sw=-1,first = 0.05,position=F)
 ```
 
 
