@@ -1,9 +1,29 @@
-######################################################################
-#
-# maplot : alternative to plot.map including mk names and position
-#          labelling
-#
-######################################################################
+#' Title alternative to plot.map including mk names and position labelling
+#'
+#' @param map
+#' @param map2
+#' @param locusname
+#' @param position
+#' @param interchr
+#' @param ymax
+#' @param cex
+#' @param decalcoef
+#' @param out
+#' @param ech
+#' @param newdev
+#' @param maih
+#' @param xlim
+#' @param first
+#' @param filename
+#' @param sw
+#' @param locolors
+#' @param boxw
+#' @param main
+#' @param ...
+#'
+#' @return
+#' @export
+#'
 
 "maplot" <-
 function(map,map2,locusname=TRUE,position=TRUE,interchr=0,ymax=NA,cex=0.6,decalcoef=0.02,out="screen",ech=1,newdev=TRUE,maih=1,xlim=1,first=0,filename=NULL,sw=rep(1,length(map)),locolors=NULL,boxw=500,main=NULL,...)
@@ -61,7 +81,7 @@ locolors<-rep("black",sum(sapply(map,length)))
 #		windows(record=TRUE,height=7*ech)
 #		}
 #		}
-		
+
   if(one.map) {
     n.chr <- length(map)
     boxw<-xlim*n.chr/boxw
@@ -95,8 +115,8 @@ locolors<-rep("black",sum(sapply(map,length)))
 				decal <- decal + ((2*cex*maxlen*decalcoef)/ech - (map[[i]][j]-map[[i]][j-1])) }
 			else if (decal>0) decal<-0
 		}
-			
-			
+
+
             lines(c(x-boxw,x+boxw),c(map[[i]][j],map[[i]][j]),col=locolors[[curloc]])
             #add locus name label
             if (locusname[[i]]){

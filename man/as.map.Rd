@@ -14,10 +14,6 @@ as.map(x, order = T)
 \description{
 Convert a map from a 3 columns data.frame to a map object
 }
-\examples{
-data(sorgho_p118)
-genonmv2<-as.map(genomv2.df)
-}
 \author{
 J.-F. Rami \email{rami@cirad.fr}
 }

@@ -5,9 +5,7 @@
 #'@param x a 3 columns data.frame with marker names, chromosome, and position
 #'@param order whether loci should be ordered by position in each chromosome. If FALSE, the order of original file is kept
 #'@author J.-F. Rami \email{rami@@cirad.fr}
-#'@examples
-#'data(sorgho_p118)
-#'genonmv2<-as.map(genomv2.df)
+#'@export
 
 as.map<-function(x,order=T){
   map<-x
@@ -17,7 +15,7 @@ as.map<-function(x,order=T){
   geno <- vector("list",n.chr)
   names(geno) <- uchr
   min.mar <- 1
-  for(i in 1:n.chr) { 
+  for(i in 1:n.chr) {
     temp.map <- round(map[map[,2]==uchr[i],3],1)
     names(temp.map) <- mnames[map[,2]==uchr[i]]
     if (order){

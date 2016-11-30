@@ -25,22 +25,7 @@
 #'
 #' @examples
 
-gg <- function(x,
-               map,
-               indiv=NA,
-               chrom=NA,
-               bw=F,
-               ech=1,
-               w=1000,
-               h=900,
-               filepointsize=16,
-               inter=0.5,xlim=1,
-               lmarg=0.2,
-               autowidth=F,
-               palett,
-               col=c("red","green","yellow","blue"),
-               density=NULL,
-               angle=45,...) {
+gg <- function(x,map,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=900,filepointsize=16,inter=0.5,xlim=1,lmarg=0.2,autowidth=F,palett,col=c("red","green","yellow","blue"),density=NULL,angle=45,...) {
 
 
     # initialize chromlist if no user input
@@ -101,3 +86,4 @@ gg <- function(x,
     }
 
   }
+
