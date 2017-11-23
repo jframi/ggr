@@ -1,4 +1,4 @@
-#' Title alternative to plot.map including mk names and position labelling
+#' Alternative to plot.map including mk names and position labelling
 #'
 #' @param map
 #' @param map2
