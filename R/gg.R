@@ -25,7 +25,7 @@
 #'
 #' @examples
 
-gg <- function(x,map,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=900,filepointsize=16,inter=0.5,xlim=1,lmarg=0.2,autowidth=F,palett,col=c("red","green","yellow","blue"),density=NULL,angle=45,...) {
+gg <- function(x,map,bychrom=T,bwchrom=20,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=900,filepointsize=16,inter=0.5,xlim=1,lmarg=0.2,autowidth=F,palett,col=c("red","green","yellow","blue"),density=NULL,angle=45,indiv.name=F,...) {
 
 
     # initialize chromlist if no user input
@@ -63,27 +63,58 @@ gg <- function(x,map,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=900,filepointsize=16,
     #   palett<-rev(rainbow(256,start = 0, end = 2/3))}
 
     # what is the size of the longer chromosome of the map
-    pluslongchrom<-max(unlist(lapply(map,max)))
+    pluslongchrom<-max(unlist(lapply(map[chromlist],max)))-min(map[chromlist][[which.max(unlist(lapply(map[chromlist],max)))]])
     indivcoords<-rep(NA,length(indiv))
     names(indivcoords)<-indiv
     codes<-unique(do.call(c,apply(x[,-1],2,function(a) levels(as.factor(a)))))
 
-    for (chrom in chromlist) {
+    if (bychrom){
 
-      # aploter is the subset of x for the current chromosome
-      chrmap<-map[chrom]
-      nmk<-length(chrmap[[1]])
+      for (chrom in chromlist) {
 
-      aploter<-x[x[,1]%in%names(chrmap[[1]]),-1]
-      maplot(chrmap,locusname=TRUE,interchr=0.5,newdev=FALSE,ech=1,xlim=xlim,ymax=pluslongchrom,...)
-      rectx1<-1+sort(rep(seq(from=lmarg,to=1-largeurt,length.out = nbindiv),nmk))
-      rectx2<-rectx1+largeur
-      recty1<-c(0,head(chrmap[[1]],-1)+(chrmap[[1]][-1]-head(chrmap[[1]],-1))/2)
-      recty2<-c(head(chrmap[[1]],-1)+(chrmap[[1]][-1]-head(chrmap[[1]],-1))/2,tail(chrmap[[1]],1))
-      #cols<-c(apply(aploter,2,function(a) match(a,codes)))
-      cols<-c(apply(aploter,2,function(a) match(a,names(col))))
-      rect(xleft = rectx1,xright = rectx2,ytop = recty1,ybottom = recty2, lwd=0.5,border=NA ,col = col[cols], density=density, angle=angle, fg="black")
-    }
+        # aploter is the subset of x for the current chromosome
+        chrmap<-map[chrom]
+        chrmap[[1]]<-chrmap[[1]]-min(chrmap[[1]])
+        nmk<-length(chrmap[[1]])
 
+        aploter<-x[x[,1]%in%names(chrmap[[1]]),-1]
+        maplot(chrmap,interchr=0.5,newdev=FALSE,ech=1,xlim=xlim,ymax=pluslongchrom,...)
+        rectx1<-1+sort(rep(seq(from=lmarg,to=1-largeurt,length.out = nbindiv),nmk))
+        rectx2<-rectx1+largeur
+        recty1<-c(0,head(chrmap[[1]],-1)+(chrmap[[1]][-1]-head(chrmap[[1]],-1))/2)
+        recty2<-c(head(chrmap[[1]],-1)+(chrmap[[1]][-1]-head(chrmap[[1]],-1))/2,tail(chrmap[[1]],1))
+        #cols<-c(apply(aploter,2,function(a) match(a,codes)))
+        cols<-c(apply(aploter,2,function(a) match(a,names(col))))
+        rect(xleft = rectx1,xright = rectx2,ytop = recty1,ybottom = recty2, lwd=0.5,border=NA ,col = col[cols], density=density, angle=angle, fg="black")
+        if (indiv.name){
+          text(x = 1+seq(from=lmarg,to=1-largeurt,length.out = nbindiv),y=-max(mapcumu[[1]])/100,labels = colnames(x[,-1])[indiv],srt=90,pos=4, cex=0.5)
+        }
+
+      }
+    } else{
+      map<-map[chromlist]
+      chromlist<-1:length(chromlist)
+      addtochrs<-c(0,head(cumsum(unlist(lapply(map,max))+bwchrom),-1))
+      mapcumu<-list(" "=unlist(sapply(1:length(map), function(a) map[[a]]+addtochrs[a])))
+      maplot(mapcumu,interchr=0.5,newdev=FALSE,ech=1,xlim=xlim,...)
+      for (chrom in chromlist) {
+        # aploter is the subset of x for the current chromosome
+        chrmap<-map[chrom]
+        nmk<-length(chrmap[[1]])
+        chrmap[[1]]<-chrmap[[1]]+addtochrs[chrom]
+        aploter<-x[x[,1]%in%names(chrmap[[1]]),-1]
+        rectx1<-1+sort(rep(seq(from=lmarg,to=1-largeurt,length.out = nbindiv),nmk))
+        rectx2<-rectx1+largeur
+        recty1<-c(min(chrmap[[1]]),head(chrmap[[1]],-1)+(chrmap[[1]][-1]-head(chrmap[[1]],-1))/2)
+        recty2<-c(head(chrmap[[1]],-1)+(chrmap[[1]][-1]-head(chrmap[[1]],-1))/2,tail(chrmap[[1]],1))
+        #cols<-c(apply(aploter,2,function(a) match(a,codes)))
+        cols<-c(apply(aploter,2,function(a) match(a,names(col))))
+        rect(xleft = rectx1,xright = rectx2,ytop = recty1,ybottom = recty2, lwd=0.5,border=NA ,col = col[cols], density=density, angle=angle, fg="black")
+      }
+      if (indiv.name){
+        text(x = 1+seq(from=lmarg,to=1-largeurt,length.out = nbindiv),y=-max(mapcumu[[1]])/100,labels = colnames(x[,-1])[indiv],srt=90,pos=4, cex=0.5)
+      }
+      rect(xleft = 1, xright = max(rectx2),ytop = unlist(lapply(map,max))+addtochrs, ybottom= unlist(lapply(map,max))+addtochrs+bwchrom, col="white",border=NA  )
+  }
   }
 

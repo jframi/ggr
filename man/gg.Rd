@@ -4,10 +4,10 @@
 \alias{gg}
 \title{Title}
 \usage{
-gg(x, map, indiv = NA, chrom = NA, bw = F, ech = 1, w = 1000,
-  h = 900, filepointsize = 16, inter = 0.5, xlim = 1, lmarg = 0.2,
-  autowidth = F, palett, col = c("red", "green", "yellow", "blue"),
-  density = NULL, angle = 45, ...)
+gg(x, map, bychrom = T, bwchrom = 20, indiv = NA, chrom = NA, bw = F,
+  ech = 1, w = 1000, h = 900, filepointsize = 16, inter = 0.5,
+  xlim = 1, lmarg = 0.2, autowidth = F, palett, col = c("red", "green",
+  "yellow", "blue"), density = NULL, angle = 45, indiv.name = F, ...)
 }
 \arguments{
 \item{palett}{not used at the moment}
