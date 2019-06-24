@@ -87,7 +87,7 @@ gg <- function(x,map,bychrom=T,bwchrom=20,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=
         cols<-c(apply(aploter,2,function(a) match(a,names(col))))
         rect(xleft = rectx1,xright = rectx2,ytop = recty1,ybottom = recty2, lwd=0.5,border=NA ,col = col[cols], density=density, angle=angle, fg="black")
         if (indiv.name){
-          text(x = 1+seq(from=lmarg,to=1-largeurt,length.out = nbindiv),y=-max(mapcumu[[1]])/100,labels = colnames(x[,-1])[indiv],srt=90,pos=4, cex=0.5)
+          text(x = 1+seq(from=lmarg,to=1-largeurt,length.out = nbindiv),y=-max(chrmap[[1]])/100,labels = indiv,srt=90,pos=4, cex=0.5)
         }
 
       }
