@@ -66,7 +66,7 @@ gg <- function(x,map,bychrom=T,bwchrom=20,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=
     pluslongchrom<-max(unlist(lapply(map[chromlist],max)))-min(map[chromlist][[which.max(unlist(lapply(map[chromlist],max)))]])
     indivcoords<-rep(NA,length(indiv))
     names(indivcoords)<-indiv
-    codes<-unique(do.call(c,apply(x[,-1],2,function(a) levels(as.factor(a)))))
+    codes<-unique(c(as.matrix(x[,-1])))
 
     if (bychrom){
 
