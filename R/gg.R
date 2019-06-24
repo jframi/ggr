@@ -1,31 +1,35 @@
 
-#' Title
+
+
+#' The main function for graphical genotyping
 #'
-#' @param x
-#' @param map
-#' @param indiv
-#' @param chrom
-#' @param bw
-#' @param ech
-#' @param w
-#' @param h
-#' @param filepointsize
-#' @param inter
-#' @param xlim
-#' @param lmarg
-#' @param autowidth
-#' @param palett not used at the moment
-#' @param col
-#' @param density
-#' @param angle
-#' @param ...
+#' @param x a data.frame with genotypic data
+#' @param map a map object as returned by as.map
+#' @param bychrom boolean. Whether one plot per chromosome should be done (TRUE), or a single one for the whole genome (FALSE)
+#' @param bwchrom space between chromosome when bychrom is FALSE
+#' @param indiv vector of integer corresponding to individuals (columns) to plot
+#' @param chrom vector of integer corresponding to chromosomes to plot
+#' @param bw boolean. Balck and white (not used at the moment)
+#' @param ech vertical scale
+#' @param w width of plotting area. not used if autowidth=T
+#' @param h height of plotting area
+#' @param filepointsize not used at the moment
+#' @param inter space between individuals
+#' @param xlim see maplot doc
+#' @param lmarg mrgin betwenn chromosome and first individual
+#' @param autowidth boolean. compute w from number of individual
+#' @param palett ,ot used
+#' @param col vector of named colors. Names need to be genotyping codes
+#' @param density parameter passed to the rect function for drawing genotyping blacks
+#' @param angle parameter passed to the rect function for drawing genotyping blacks
+#' @param indiv.name boolean. should individual names be plotted (deduced from c colnames)
+#' @param ... additional parameters to be passed to maplot
 #'
 #' @return
 #' @export
 #'
 #' @examples
-
-gg <- function(x,map,bychrom=T,bwchrom=20,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=900,filepointsize=16,inter=0.5,xlim=1,lmarg=0.2,autowidth=F,palett,col=c("red","green","yellow","blue"),density=NULL,angle=45,indiv.name=F,...) {
+gg <- function(x,map,bychrom=T,bwchrom=20,indiv=NA,chrom=NA,bw=F,ech=1,w=1000,h=900,filepointsize=16,inter=0.5,xlim=1,lmarg=0.2,autowidth=F,palett,col, density=NULL,angle=45,indiv.name=F,...) {
 
 
     # initialize chromlist if no user input
